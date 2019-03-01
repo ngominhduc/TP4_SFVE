@@ -5,7 +5,9 @@ import org.jmlspecs.annotation.SpecPublic;
 public class Explosives{
 	
     public int nb_inc = 0;
+    public int nb_comp = 0;
     public String [][] incomp = new String[50][2];
+    public String [][] compa = new String[50][2];
     public int nb_assign = 0;
     public String [][] assign = new String[30][2];
     public int [][] count = new int[30][2];
@@ -76,6 +78,34 @@ public class Explosives{
 	assign[nb_assign][1] = prod;
 	nb_assign = nb_assign+1;
     }
+    
+    public boolean compatible(String prod1, String prod2) {
+    	boolean compatible = false; 
+    	for (int i = 0; i < nb_inc; i++) {
+    		if ((prod1 ==  incomp[i][0] && prod2 ==  incomp[i][1]) || (prod1 ==  incomp[i][1] && prod2 ==  incomp[i][0])){
+    			compatible =  false;
+    			break;
+    		}
+    		else {
+    			compatible = true;
+			}
+    	}
+    	return compatible;
+    }
+    
+    //@ ensures \result.startsWith("Bat"); 
+    public String findBat(String prod) {
+    	String bat = "find the bat"; 
+    	for (int i = 0; i < nb_assign; i ++){
+    		if (compatible(prod, assign[i][1]) == true) {
+    			bat = assign[i][0];
+    			System.out.println("produit " + prod + " peut stocker dans le batiment " + bat);
+    			break;
+    		}
+    	}
+    	return bat;
+    }
+    
     public void skip(){
     }
 }

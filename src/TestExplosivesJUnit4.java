@@ -19,7 +19,6 @@ public class TestExplosivesJUnit4 {
 
 
     private void handleJMLAssertionError(JmlAssertionError e) {
-    	System.out.println("haha");
     	if (e.getClass().equals(JmlAssertionError.PreconditionEntry.class)) {
     	    System.out.println("\n INCONCLUSIVE "+(new Exception().getStackTrace()[1].getMethodName())+ "\n\t "+ e.getMessage());
             nb_inconclusive++;}
@@ -76,24 +75,20 @@ public class TestExplosivesJUnit4 {
 			//e.add_assign("Bat_1","Prod_Nitro");
 			//e.add_assign("Bat_1","Prod_Glycerine");
 			
-			//invalide precondition 1
-			//e.add_incomp("Prod_1","Prod_2");
-			//e.add_incomp("Prod_2","Prod_3");
-			//e.add_incomp("Prod_3","Prod_4");
-			
-			//invalide precondition 2
-			//e.add_assign("Bat_1","Prod_Nitro");
-			//e.add_assign("Bat_1","Prod_Nitro");
-			//e.add_assign("Bat_1","Prod_Nitro");
-			
 			//invalide propriete 8
 			//e.add_assign("Bat_1","Prod_Nitro");
 			//e.add_assign("Bat_1","Prod_Nitro");
 			
 			//invalide propriete 9
+			//e.add_assign("Bat_1","Prod_Nitro");
+			//e.add_assign("Bat_2","Prod_Nitro");
+			//e.add_assign("Bat_3","Prod_Nitro");
+			
+			//test question 4
+			e.add_incomp("Prod_Nitro","Prod_Glycerine");
 			e.add_assign("Bat_1","Prod_Nitro");
-			e.add_assign("Bat_2","Prod_Nitro");
-			e.add_assign("Bat_3","Prod_Nitro");
+			e.add_assign("Bat_2","Prod_2");
+			e.findBat("Prod_Glycerine");
 		} 	catch(JmlAssertionError e){
 				handleJMLAssertionError(e);		
 		}  
