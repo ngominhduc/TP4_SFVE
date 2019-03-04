@@ -62,16 +62,19 @@ public class Explosives{
     //@ public constraint \old(nb_inc) <= nb_inc; //Prop 10
     
     //@ requires nb_inc <= 48; 
+    //@ requires prod1.startsWith("Prod"); 
+    //@ requires prod2.startsWith("Prod"); 
     public void add_incomp(String prod1, String prod2){
 	incomp[nb_inc][0] = prod1;
 	incomp[nb_inc][1] = prod2;
 	incomp[nb_inc+1][1] = prod1;
 	incomp[nb_inc+1][0] = prod2;
 	nb_inc = nb_inc+2;
-	System.out.println(nb_inc);
      }
     
     //@ requires nb_assign <= 29; 
+    //@ requires bat.startsWith("Bat");
+    //@ requires prod.startsWith("Prod"); 
     public void add_assign(String bat, String prod){
 	assign[nb_assign][0] = bat;
 	assign[nb_assign][1] = prod;
@@ -92,7 +95,7 @@ public class Explosives{
     	return compatible;
     }
     
-    //@ requires prod != null; 
+    //@ requires prod.startsWith("Prod"); 
     //@ ensures \result.startsWith("Bat"); 
     public String findBat(String prod) {
     	String bat = "find the bat"; 
