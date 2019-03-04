@@ -53,7 +53,8 @@ public class TestExplosivesFindBat {
 			//invalide post-condition
 			//e.findBat("Prod_Nitro");
 			
-			e.add_assign("Bat_2","Prod_2");
+			//e.add_assign("Bat_2","Prod_2");
+			e.add_assign("Bat_2","Prod_5");
 			e.add_assign("Bat_3","Prod_3");
 			e.add_assign("Bat_4","Prod_4");
 			e.findBat("Prod_Nitro");

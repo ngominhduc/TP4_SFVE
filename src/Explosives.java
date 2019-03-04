@@ -11,7 +11,8 @@ public class Explosives{
     public String [][] incomp = new String[50][2];
     public int nb_assign = 0;
     public String [][] assign = new String[30][2];
-    
+    public int nb_comp_bat = 0;
+    public ArrayList<String> comp_bat = new ArrayList<String>();
     /*@ public invariant // Prop 1
       @ (0 <= nb_inc && nb_inc < 50);
       @*/
@@ -80,7 +81,8 @@ public class Explosives{
 	assign[nb_assign][1] = prod;
 	nb_assign = nb_assign+1;
     }
-    
+  
+    //@ requires !prod1.equals(prod2);
     public boolean compatible(String prod1, String prod2) {
     	boolean compatible = false; 
     	for (int i = 0; i < nb_inc; i++) {
@@ -95,21 +97,29 @@ public class Explosives{
     	return compatible;
     }
     
-    //@ requires prod.startsWith("Prod"); 
-    //@ ensures \result.startsWith("Bat"); 
+    
+    /*@ public invariant // Prop 11
+    @ (\forall int i; 0 <= i && i < nb_comp_bat; 
+    @        (\forall int j; i < j && j < nb_comp_bat; 
+    @           !(comp_bat.get(i)).equals(comp_bat.get(j)) 
+    @)); 
+    @*/
+    
+    //@ requires prod.startsWith("Prod"); //prop 12
+    //@ ensures \result.startsWith("Bat"); //prop 13
+    
     public String findBat(String prod) {
     	String bat = "find the bat"; 
-    	ArrayList<String> comp_bat = new ArrayList<String>();
-    	int j = 0;
     	for (int i = 0; i < nb_assign; i ++){
     		if (prod != assign[i][1]) {
     			if (compatible(prod, assign[i][1]) == true) {
         			bat = assign[i][0];
         			comp_bat.add(bat);
-        			j++;
+        			nb_comp_bat ++;
         		}
     		}
     	}
+    	System.out.println(nb_comp_bat);
     	for (int i = 0; i < comp_bat.size(); i++) {
     		System.out.println("Produit " + prod + " peut etre stocker dans batiment " + comp_bat.get(i));
     	}
