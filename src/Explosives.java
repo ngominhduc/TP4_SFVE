@@ -1,5 +1,7 @@
 // Based on a B specification from Marie-Laure Potet.
 
+import java.util.ArrayList;
+
 public class Explosives{
     public int nb_inc = 0;
     public String [][] incomp = new String[50][2];
@@ -83,7 +85,10 @@ public class Explosives{
 
     //@ requires nb_assign < 29;
     //@ requires bat.startsWith("Bat") && prod.startsWith("Prod");
-    //@ requires (\forall int i; 0 <= i && i < nb_assign; assign[i][0].equals(bat) ==> (\forall int j; 0 <= j && j < nb_inc; assign[i][1].equals(incomp[j][0]) ==> ! incomp[j][1].equals(prod) ) );
+    /*@ requires (\forall int i; 0 <= i && i < nb_assign;
+    @		assign[i][0].equals(bat) ==> (\forall int j; 0 <= j && j < nb_inc;
+    @			assign[i][1].equals(incomp[j][0]) ==> ! incomp[j][1].equals(prod)));
+    @*/
     public void add_assign(String bat, String prod){
     	assign[nb_assign][0] = bat;
     	assign[nb_assign][1] = prod;
@@ -95,15 +100,42 @@ public class Explosives{
 
     //@ requires prod.startsWith("Prod");
     //@ ensures \result.startsWith("Bat");
+	/*@ ensures (\forall int i; 0 <= i && i < nb_assign;
+    @   	(\result.equals(assign[i][0]) && !assign[i][1].equals(prod)) ==>
+    @ 			(\forall int j; 0 <= j && j < nb_inc;
+    @           	assign[j][0].equals(prod) ==> !assign[j][1].equals(assign[i][1])));
+    @*/
     public String findBat(String prod) {
-        
-        for (int i = O; i < nb_assign; i++) {
+    	// liste des batiments incompatible
+		ArrayList<String> incompBat = new ArrayList<>();
 
+		// on dresse la liste des batiments incompatible
+        for (int i = 0; i < nb_assign; i++) {
+        	// si le batiment contient déjà le produit, il est incompatible
+			// si le batiment contient un produit incompatible avec prod, il est incompatible
+			if (assign[i][1].equals(prod) || !compatible(prod, assign[i][1])) {
+				if (!incompBat.contains(assign[i][0])) incompBat.add(assign[i][0]);
+			}
         }
+
+        // on cherche parmis les batiments existant un qui ne soit pas incompatible
+		for (int i = 0; i < nb_assign; i++) {
+			if (!incompBat.contains(assign[i][0])) return assign[i][0];
+		}
+
+		// Aucun bâtiments existant ne peut recevoir le produit, il faut donc en créer un nouveau
+		String newBatName;
+		int newBatNumber = 0;
+		do {
+			newBatNumber++;
+			newBatName = "Bat_" + newBatNumber;
+		} while (incompBat.contains(newBatName));
+
+		return newBatName;
     }
 
     public boolean compatible(String prod1, String prod2) {
-        for (int i = O; i < nb_inc; i++) {
+        for (int i = 0; i < nb_inc; i++) {
             if (incomp[i][0].equals(prod1) && incomp[i][1].equals(prod2)) return false;
         }
         return true;
