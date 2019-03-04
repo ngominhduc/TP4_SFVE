@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.jmlspecs.annotation.SpecPublic;
 
 // Based on a B specification from Marie-Laure Potet.
@@ -7,10 +9,8 @@ public class Explosives{
     public int nb_inc = 0;
     public int nb_comp = 0;
     public String [][] incomp = new String[50][2];
-    public String [][] compa = new String[50][2];
     public int nb_assign = 0;
     public String [][] assign = new String[30][2];
-    public int [][] count = new int[30][2];
     
     /*@ public invariant // Prop 1
       @ (0 <= nb_inc && nb_inc < 50);
@@ -99,16 +99,21 @@ public class Explosives{
     //@ ensures \result.startsWith("Bat"); 
     public String findBat(String prod) {
     	String bat = "find the bat"; 
+    	ArrayList<String> comp_bat = new ArrayList<String>();
+    	int j = 0;
     	for (int i = 0; i < nb_assign; i ++){
     		if (prod != assign[i][1]) {
     			if (compatible(prod, assign[i][1]) == true) {
         			bat = assign[i][0];
-        			System.out.println("produit " + prod + " peut stocker dans le batiment " + bat);
-        			break;
+        			comp_bat.add(bat);
+        			j++;
         		}
     		}
     	}
-    	return bat;
+    	for (int i = 0; i < comp_bat.size(); i++) {
+    		System.out.println("Produit " + prod + " peut etre stocker dans batiment " + comp_bat.get(i));
+    	}
+    	return comp_bat.get(0);
     }
     
     public void skip(){
