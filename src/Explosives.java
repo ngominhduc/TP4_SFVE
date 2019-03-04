@@ -100,10 +100,12 @@ public class Explosives{
     public String findBat(String prod) {
     	String bat = "find the bat"; 
     	for (int i = 0; i < nb_assign; i ++){
-    		if (compatible(prod, assign[i][1]) == true) {
-    			bat = assign[i][0];
-    			System.out.println("produit " + prod + " peut stocker dans le batiment " + bat);
-    			break;
+    		if (prod != assign[i][1]) {
+    			if (compatible(prod, assign[i][1]) == true) {
+        			bat = assign[i][0];
+        			System.out.println("produit " + prod + " peut stocker dans le batiment " + bat);
+        			break;
+        		}
     		}
     	}
     	return bat;
