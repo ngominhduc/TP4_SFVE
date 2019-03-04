@@ -1,5 +1,4 @@
 import static org.junit.Assert.*;
-
 import org.jmlspecs.utils.JmlAssertionError;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -11,7 +10,7 @@ public class TestExplosivesJUnit4 {
     static int nb_inconclusive = 0;
     static int nb_fail = 0;
 
-    Explosives e;
+    Explosives e = new Explosives();
 
     public static void main(String args[]) {
     	String testClass = "TestExplosivesJUnit4";

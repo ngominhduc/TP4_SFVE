@@ -1,14 +1,25 @@
+import java.util.ArrayList;
+
+import org.jmlspecs.annotation.SpecPublic;
+
 // Based on a B specification from Marie-Laure Potet.
 
 import java.util.ArrayList;
 
 public class Explosives{
+
     public int nb_inc = 0;
+    public int nb_comp = 0;
     public String [][] incomp = new String[50][2];
     public int nb_assign = 0;
     public String [][] assign = new String[30][2];
+<<<<<<< HEAD
 
  /*  L'indice d'insertion dans le tableau des incompatibilités est compris entre 0 et la taille maximale du tableau (50).*/
+=======
+    public int nb_comp_bat = 0;
+    public ArrayList<String> comp_bat = new ArrayList<String>();
+>>>>>>> 13874655bf3d6752a4e5cce3c9b313f6e8dee1cc
     /*@ public invariant // Prop 1
       @ (0 <= nb_inc && nb_inc < 50);
       @*/
