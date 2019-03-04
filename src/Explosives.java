@@ -55,8 +55,8 @@ public class Explosives{
     
     /*@ public invariant // Prop 9
 	@ (\forall int i; 0 <= i && i < nb_assign;
-	@ (\num_of int k;i<k && k< nb_assign;
-	@ (assign[i][1]).equals(assign [k][1])) < 3);
+	@ 	(\num_of int k;0 <= k && k< nb_assign;
+	@ 		(assign[i][1]).equals(assign [k][1])) <= 3);
     @*/
     
     //@ public constraint \old(nb_inc) <= nb_inc; //Prop 10

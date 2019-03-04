@@ -80,19 +80,21 @@ public class TestExplosivesJUnit4 {
 			//e.add_assign("Bat_1","Prod_Nitro");
 			
 			//invalide propriete 9
-			//e.add_assign("Bat_1","Prod_Nitro");
-			//e.add_assign("Bat_2","Prod_Nitro");
-			//e.add_assign("Bat_3","Prod_Nitro");
+			e.add_assign("Bat_1","Prod_Nitro");
+			e.add_assign("Bat_2","Prod_Nitro");
+			e.add_assign("Bat_3","Prod_Nitro");
+			e.add_assign("Bat_4","Prod_Nitro");		
 			
 			//test question 4
-			e.add_incomp("Prod_Nitro","Prod_Glycerine");
-			e.add_assign("Bat_1","Prod_Nitro");
-			e.add_assign("Bat_2","Prod_2");
-			e.findBat("Prod_Glycerine");
+			//e.add_incomp("Prod_Nitro","Prod_Glycerine");
+			//e.add_assign("Bat_1","Prod_Nitro");
+			//e.add_assign("Bat_2","Prod_2");
+			//e.findBat("");
 		} 	catch(JmlAssertionError e){
 				handleJMLAssertionError(e);		
 		}  
 	}
 
-
+	
+	
 }
