@@ -53,15 +53,13 @@ public class Explosives{
     @   );
     @*/
     
-    
     /*@ public invariant // Prop 9
-    @  (\forall int i; 0 <= i &&  i < nb_assign;
-    @		(\forall int j; 0 <= j &&  i < nb_assign;
-    @			((i != j && (assign[i][1]).equals(assign [j][1]) && !(assign[i][0]).equals(assign [j][0]))) ==>
-    @				(\forall int k; 0 <= k &&  k < nb_assign;
-   	@				((k != j && i != j && i !=k && (assign[j][1]).equals(assign [k][1]) && !(assign[k][0]).equals(assign [j][0]) )) ==> !(assign[i][1]).equals(assign [k][1])
-    @  ))); 
+	@ (\forall int i; 0 <= i && i < nb_assign;
+	@ (\num_of int k;i<k && k< nb_assign;
+	@ (assign[i][1]).equals(assign [k][1])) < 3);
     @*/
+    
+    //@ public constraint \old(nb_inc) <= nb_inc; //Prop 10
     
     //@ requires nb_inc <= 48; 
     public void add_incomp(String prod1, String prod2){
@@ -70,6 +68,7 @@ public class Explosives{
 	incomp[nb_inc+1][1] = prod1;
 	incomp[nb_inc+1][0] = prod2;
 	nb_inc = nb_inc+2;
+	System.out.println(nb_inc);
      }
     
     //@ requires nb_assign <= 29; 
@@ -93,6 +92,7 @@ public class Explosives{
     	return compatible;
     }
     
+    //@ requires prod != null; 
     //@ ensures \result.startsWith("Bat"); 
     public String findBat(String prod) {
     	String bat = "find the bat"; 
